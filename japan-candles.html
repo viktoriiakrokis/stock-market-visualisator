@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+    <canvas id="myCandle" width="500" height="500" style="border:1px solid #d3d3d3;">
+    </canvas>
+    <script>
+      var c = document.getElementById("myCandle");
+      var ctx = c.getContext("2d");
+      
+      // Fill 
+      // ctx.fillStyle = "green";
+      // ctx.fillRect(70,260,20,30);
+      // drawRectangle(ctx, 70, 260, 20, 30, 'red');
+
+      //Line move
+
+      // Axis Y
+      //ctx.fillStyle = "black";
+      //ctx.fillRect(20,20,1,470);
+      drawLine(ctx, 20, 20, 20, 490);
+
+      // Axis X
+      //ctx.fillStyle = "black";
+      //ctx.fillRect(10, 480, 460, 1);
+      drawLine(ctx, 10, 480, 490, 480);
+
+
+
+
+
+
+      const candleData = {
+        minute: 1,
+        open: 50,
+        high: 80,
+        low: 30,
+        close: 120
+      };
+      
+      // drawLowerLine
+      var x1 = candleData['minute'] * 20 + 30;
+      var y1 = 480 - candleData['low'];
+      var x2 = candleData['minute'] * 20 + 30;
+      var y2 = 480 - candleData['open'];
+      
+      // drawRectangle
+      var x = candleData['minute'] * 20 + 20;
+      var y = 480 - candleData['close'];
+      var width = 20;
+      var height = candleData['close'] - candleData['open'];
+      var color = ' ';
+      if (candleData['open'] < candleData['close']) {
+        color = 'green';
+      } else if(candleData['open'] > candleData['close']){
+        color = 'red';
+      }
+
+
+
+      // Shadow
+      // ctx.fillStyle = "black";
+      //ctx.fillRect(40, 290, 1, 10);
+      drawLine(ctx, x1, y1, x2, y2);
+
+      //  // ctx.fillStyle = "green";
+      // // ctx.fillRect(30,300,20,80);
+      drawRectangle(ctx, x, y, width, height, color);
+
+      // // ctx.fillStyle = "black";
+      // // ctx.fillRect(40, 380, 1, 20);
+      // drawLine(ctx, 40, 380, 40, 400);
+
+
+
+
+
+
+      function drawLine(context, x1, y1, x2, y2, color='black') {
+        context.beginPath();
+        context.moveTo(x1-0.5, y1-0.5);
+        context.lineTo(x2-0.5, y2-0.5);
+        context.strokeStyle = color;
+        context.stroke();
+      }
+
+      function drawRectangle(context, x, y, width, height, color) {
+        context.fillStyle = color;
+        context.fillRect(x, y, width, height);
+      }
+
+      // function drawCandle (context, x, y, height1, height2, height3) {
+      //   //drawLine(context, height1);
+      //   drawLine(context, 40, 290, 40, 300);
+      //   drawLine(height3);
+      //   drawRectangle(height2);
+      // }
+
+      // drawCandle(ctx, 10, 30, 20);
+
+
+    </script>
+  
+</body>
+</html>
