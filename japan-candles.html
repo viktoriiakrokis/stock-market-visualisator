@@ -23,24 +23,20 @@
       // Axis Y
       //ctx.fillStyle = "black";
       //ctx.fillRect(20,20,1,470);
-      drawLine(ctx, 20, 20, 20, 490);
+      // drawLine(ctx, 20, 20, 20, 490);
 
       // Axis X
       //ctx.fillStyle = "black";
       //ctx.fillRect(10, 480, 460, 1);
-      drawLine(ctx, 10, 480, 490, 480);
-
-
-
-
+      // drawLine(ctx, 10, 480, 490, 480);
 
 
       const candleData = {
         minute: 1,
-        open: 50,
-        high: 80,
-        low: 30,
-        close: 120
+        open: 120,
+        high: 180,
+        low: 110,
+        close: 160
       };
       
       // drawLowerLine
@@ -50,23 +46,35 @@
       var y2 = 480 - candleData['open'];
       
       // drawRectangle
-      var x = candleData['minute'] * 20 + 20;
-      var y = 480 - candleData['close'];
-      var width = 20;
-      var height = candleData['close'] - candleData['open'];
-      var color = ' ';
+      var x ;
+      var y ;
+      var width = 20;;
+      var height ;
+      var color ;
       if (candleData['open'] < candleData['close']) {
         color = 'green';
+        var x = candleData['minute'] * 20 + 20;
+        var y = 480 - candleData['close'];
+        var height = candleData['close'] - candleData['open'];
       } else if(candleData['open'] > candleData['close']){
         color = 'red';
+        var x = candleData['minute'] * 20 + 20;
+        var y = 480 - candleData['open'];
+        var height =  candleData['open'] - candleData['close'];
       }
+
+      // drawUpperLine
+      var Ux1 = candleData['minute'] * 20 + 30;
+      var Uy1 = 480 - candleData['close'];
+      var Ux2 = candleData['minute'] * 20 + 30;
+      var Uy2 = 480 - candleData['high'];
 
 
 
       // Shadow
       // ctx.fillStyle = "black";
       //ctx.fillRect(40, 290, 1, 10);
-      drawLine(ctx, x1, y1, x2, y2);
+      drawLowerLine(ctx, x1, y1, x2, y2);
 
       //  // ctx.fillStyle = "green";
       // // ctx.fillRect(30,300,20,80);
@@ -74,14 +82,18 @@
 
       // // ctx.fillStyle = "black";
       // // ctx.fillRect(40, 380, 1, 20);
-      // drawLine(ctx, 40, 380, 40, 400);
+      console.log({ Ux1, Uy1, Ux2, Uy2 })
+      drawUpperLine(ctx, Ux1, Uy1, Ux2, Uy2);
+      
 
 
 
+      function drawRectangle(context, x, y, width, height, color) {
+        context.fillStyle = color;
+        context.fillRect(x, y, width, height);
+      }
 
-
-
-      function drawLine(context, x1, y1, x2, y2, color='black') {
+      function drawLowerLine(context, x1, y1, x2, y2, color='black') {
         context.beginPath();
         context.moveTo(x1-0.5, y1-0.5);
         context.lineTo(x2-0.5, y2-0.5);
@@ -89,10 +101,15 @@
         context.stroke();
       }
 
-      function drawRectangle(context, x, y, width, height, color) {
-        context.fillStyle = color;
-        context.fillRect(x, y, width, height);
+      function drawUpperLine(context, x1, y1, x2, y2, color='black') {
+        context.beginPath();
+        context.moveTo(x1-0.5, y1-0.5);
+        context.lineTo(x2-0.5, y2-0.5);
+        context.strokeStyle = color;
+        context.stroke();
       }
+
+     
 
       // function drawCandle (context, x, y, height1, height2, height3) {
       //   //drawLine(context, height1);
