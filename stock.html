@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            width: 180px;
+            padding: 5px;
+            text-align: left;    
+        }
+    </style>
+</head>
+
+<html>
+    <body>
+        <table style="width:100%">
+            <tr>
+                <th></th>
+                <th>Total</th>
+                <th>Daily</th>
+                <th>Trade</th>
+            </tr>
+            <tr>
+                <th>Profit</th>
+                <th id="totalProfit"></th>
+                <th id="avgDayProfit"></th>
+                <th id="avgProfitPerTrade"></th>
+            </tr>
+            <tr>
+                <th>Net profit</th>
+                <th>-</th>
+                <th id="avgDayNetProfitPercentage"></th>
+                <th>-</th>
+            </tr>
+            <tr>
+                <th>Trades</th>
+                <th id="totalTrades">-</th>
+                <th id="tradesPerDay"></th>
+                <th>-</th>
+            </tr>
+            <tr>
+                <th>Success rate</th>
+                <th id="successRate"></th>   
+            </tr>
+        </table>
+
+        <script>
+        
+            let report = {
+                totalProfit: 1556.136000000015,
+                totalProfitPercentage: 15.56136000000015,
+                marketChangePercentage: 2.118057336273665,
+                netChangePercentage: 13.443302663726485,
+                marketBeatenByPercentage: 634.6996577239745,
+                avgDayNetProfitPercentage: 0.34776941192250127,
+                avgDayProfit: 43.22600000000042,
+                avgDayProfitPercentage: 0.40256216431968994,
+                successRate: 86.41975308641975,
+                totalValue: 11556.136000000015,
+                balance: 11556.136000000015,
+                assetsSummary: '0 AAPL at 199.12$',
+                totalTrades: 81,
+                tradesPerDay: 2.25,
+                avgProfitPerTrade: 19.21155555555574,
+                avgProfitPerShare: 0.39456790123456764,
+                avgProfitPerSharePercentage: 0.19705832760006725,
+                avgProfitPerMinute: 0.0465156931906503,
+                avgTradeDuration: 24780740.740740743,
+                tradingDays: 36,
+                totalDays: 57,
+                executionTime: 293
+            };
+            document.getElementById('totalProfit').innerText = report.totalProfit.toFixed(2) + " $";
+            document.getElementById('avgDayProfit').innerText = report.avgDayProfit.toFixed(2) + " $";
+            document.getElementById('avgProfitPerTrade').innerText = report.avgProfitPerTrade.toFixed(2) + " $";
+            document.getElementById('avgDayNetProfitPercentage').innerText = report.avgDayNetProfitPercentage.toFixed(2) + " $";
+            document.getElementById('totalTrades').innerText = report.totalTrades.toFixed(2) + " $";
+            document.getElementById('tradesPerDay').innerText = report.tradesPerDay.toFixed(2) + " $";
+            document.getElementById('successRate').innerText = report.successRate.toFixed(2) + " $";
+        </script>
+    </body>
+</html>
