@@ -33,48 +33,64 @@
 
       const candleData = {
         minute: 1,
-        open: 120,
+        open: 160,
         high: 180,
-        low: 110,
-        close: 160
+        low: 70,
+        close: 120
       };
       
-      // drawLowerLine
+      // // drawLowerLine
+      // var x1 = candleData['minute'] * 20 + 30;   
+      // var y1 = 480 - candleData['low'];
+      // var x2 = candleData['minute'] * 20 + 30;   
+      // var y2 = 480 - candleData.open;
+      // // drawUpperLine
+      // var Ux1 = candleData['minute'] * 20 + 30;
+      // var Uy1 = 480 - candleData.close;
+      // var Ux2 = candleData['minute'] * 20 + 30;
+      // var Uy2 = 480 - candleData['high'];
+
+     // Lower line
       var x1 = candleData['minute'] * 20 + 30;
-      var y1 = 480 - candleData['low'];
-      var x2 = candleData['minute'] * 20 + 30;
-      var y2 = 480 - candleData['open'];
+      // x1 = x2 = Ux1 = Ux2;
+      // var y1 = (candleData.open < candleData.close)? 480 - candleData.low: 480 - candleData.close;
+      // var y2 = (candleData.open < candleData.close)? 480 - candleData.open: 480 - candleData.high;
+      var y1 = 480 - candleData.low;
+      var y2 = 480 - Math.min(candleData.close, candleData.open);
+
+      // UpperLine
+      // var Uy1 = (candleData.open < candleData.close)? 480 - candleData.close: 480 - candleData.open;
+      // var Uy2 = (candleData.open < candleData.close)? 480 - candleData.high: 480 - candleData.open;
+      var Uy1 = 480 - Math.max(candleData.close, candleData.open);
+      var Uy2 = 480 - candleData.high;
       
       // drawRectangle
-      var x ;
-      var y ;
-      var width = 20;;
-      var height ;
-      var color ;
-      if (candleData['open'] < candleData['close']) {
-        color = 'green';
-        var x = candleData['minute'] * 20 + 20;
-        var y = 480 - candleData['close'];
-        var height = candleData['close'] - candleData['open'];
-      } else if(candleData['open'] > candleData['close']){
-        color = 'red';
-        var x = candleData['minute'] * 20 + 20;
-        var y = 480 - candleData['open'];
-        var height =  candleData['open'] - candleData['close'];
-      }
-
-      // drawUpperLine
-      var Ux1 = candleData['minute'] * 20 + 30;
-      var Uy1 = 480 - candleData['close'];
-      var Ux2 = candleData['minute'] * 20 + 30;
-      var Uy2 = 480 - candleData['high'];
-
+      // var x = candleData['minute'] * 20 + 20;
+      // var y;
+      // var width = 20;
+      // var height ;
+      //var color ;
+      // if (candleData.open < candleData.close) {
+      //   var y = 480 - candleData.close;
+      //   var height = candleData.close - candleData.open;
+      // } else if(candleData.open > candleData.close){
+      //   var y = 480 - candleData.open;
+      //   var height =  candleData.open - candleData.close;
+      // }
+      var x = candleData.minute * 20 + 20;
+      var width = 20;
+      var color = (candleData.open < candleData.close) ? 'green' : 'red';
+      //var y = (candleData.open < candleData.close) ? 480 - candleData.close : 480 - candleData.open;
+      var y = 480 - Math.max(candleData.close, candleData.open);
+      // var height = (candleData.open < candleData.close) ? candleData.close - candleData.open : candleData.open - candleData.close;
+      var height =  Math.abs(candleData.close - candleData.open);
+      
 
 
       // Shadow
       // ctx.fillStyle = "black";
       //ctx.fillRect(40, 290, 1, 10);
-      drawLowerLine(ctx, x1, y1, x2, y2);
+      drawLowerLine(ctx, x1, y1, x1, y2);
 
       //  // ctx.fillStyle = "green";
       // // ctx.fillRect(30,300,20,80);
@@ -82,8 +98,7 @@
 
       // // ctx.fillStyle = "black";
       // // ctx.fillRect(40, 380, 1, 20);
-      console.log({ Ux1, Uy1, Ux2, Uy2 })
-      drawUpperLine(ctx, Ux1, Uy1, Ux2, Uy2);
+      drawUpperLine(ctx, x1, Uy1, x1, Uy2);
       
 
 
