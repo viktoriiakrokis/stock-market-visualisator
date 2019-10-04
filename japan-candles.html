@@ -7,7 +7,7 @@
   <title>Document</title>
 </head>
 <body>
-    <canvas id="myCandle" width="500" height="500" style="border:1px solid #d3d3d3;">
+    <canvas id="myCandle" width="1000" height="700" style="border:1px solid #d3d3d3;">
     </canvas>
     <script>
       var c = document.getElementById("myCandle");
@@ -21,30 +21,226 @@
         close: 120
       };*/
 
-      const candleData = [
-        {
-          minute: 1,
-          open: 150,
-          high: 160,
-          low: 40,
-          close: 120
+  //     {
+  //   "2019-09-27 09:30:00": {
+  //       "ticker": "AAPL",
+  //       "date": "2019-09-27 09:30:00",
+  //       "price": 220.73,
+  //       "open": 220.54,
+  //       "high": 220.87,
+  //       "low": 220.43,
+  //       "volume": 370791,
+  //       "close": 220.73,
+  //       "isClosing": true
+  //   },
+  //   "2019-09-27 09:31:00": {
+  //       "ticker": "AAPL",
+  //       "date": "2019-09-27 09:31:00",
+  //       "price": 220.73,
+  //       "open": 220.54,
+  //       "high": 220.87,
+  //       "low": 220.43,
+  //       "volume": 370791,
+  //       "close": 220.73,
+  //       "isClosing": true
+  //   }
+  // }
+
+    const rawData = {
+        "2019-09-27 09:30:00": {
+            "minute": 1,
+            "ticker": "AAPL",
+            "date": "2019-09-27 09:30:00",
+            "price": 220.73,
+            "open": 220.54,
+            "high": 220.87,
+            "low": 220.43,
+            "volume": 370791,
+            "close": 220.73,
+            "isClosing": true
         },
-        { 
-          minute: 2,
-          open: 130,
-          high: 160,
-          low: 70,
-          close: 150
+        "2019-09-27 09:31:00": {
+            "ticker": "AAPL",
+            "date": "2019-09-27 09:31:00",
+            "price": 220.73,
+            "open": 220.54,
+            "high": 220.87,
+            "low": 220.43,
+            "volume": 370791,
+            "close": 220.73,
+            "isClosing": true
         },
-        { 
-          minute: 3,
-          open: 200,
-          high: 250,
-          low: 130,
-          close: 140
+        "2019-09-27 09:33:00": {
+            "ticker": "AAPL",
+            "date": "2019-09-27 09:33:00",
+            "price": 220.38,
+            "open": 220.35,
+            "high": 220.41,
+            "low": 220.28,
+            "volume": 396345,
+            "close": 220.38,
+            "isClosing": true
+        },
+        "2019-09-27 09:34:00": {
+            "ticker": "AAPL",
+            "date": "2019-09-27 09:34:00",
+            "price": 220.38,
+            "open": 220.35,
+            "high": 220.41,
+            "low": 220.28,
+            "volume": 396345,
+            "close": 220.38,
+            "isClosing": true
+        },
+        "2019-09-27 09:35:00": {
+            "ticker": "AAPL",
+            "date": "2019-09-27 09:35:00",
+            "price": 220.46,
+            "open": 220.38,
+            "high": 220.6,
+            "low": 220.36,
+            "volume": 113646,
+            "close": 220.46,
+            "isClosing": true
+        },
+        "2019-09-27 09:36:00": {
+            "ticker": "AAPL",
+            "date": "2019-09-27 09:36:00",
+            "price": 220.37,
+            "open": 220.45,
+            "high": 220.46,
+            "low": 220.31,
+            "volume": 57151,
+            "close": 220.37,
+            "isClosing": true
+        },
+        "2019-09-27 09:37:00": {
+            "ticker": "AAPL",
+            "date": "2019-09-27 09:37:00",
+            "price": 220.28,
+            "open": 220.35,
+            "high": 220.36,
+            "low": 220.21,
+            "volume": 59188,
+            "close": 220.28,
+            "isClosing": true
+        },
+        "2019-09-27 09:38:00": {
+            "ticker": "AAPL",
+            "date": "2019-09-27 09:38:00",
+            "price": 220.22,
+            "open": 220.28,
+            "high": 220.29,
+            "low": 220.15,
+            "volume": 63228,
+            "close": 220.22,
+            "isClosing": true
+        },
+        "2019-09-27 09:39:00": {
+            "ticker": "AAPL",
+            "date": "2019-09-27 09:39:00",
+            "price": 220.25,
+            "open": 220.19,
+            "high": 220.25,
+            "low": 220.12,
+            "volume": 46876,
+            "close": 220.25,
+            "isClosing": true
+        },
+        "2019-09-27 09:40:00": {
+            "ticker": "AAPL",
+            "date": "2019-09-27 09:40:00",
+            "price": 220.29,
+            "open": 220.26,
+            "high": 220.38,
+            "low": 220.2,
+            "volume": 61431,
+            "close": 220.29,
+            "isClosing": true
+        },
+        "2019-09-27 09:41:00": {
+            "ticker": "AAPL",
+            "date": "2019-09-27 09:41:00",
+            "price": 220.38,
+            "open": 220.28,
+            "high": 220.41,
+            "low": 220.27,
+            "volume": 42011,
+            "close": 220.38,
+            "isClosing": true
+        },
+        "2019-09-27 09:42:00": {
+            "ticker": "AAPL",
+            "date": "2019-09-27 09:42:00",
+            "price": 220.32,
+            "open": 220.38,
+            "high": 220.39,
+            "low": 220.32,
+            "volume": 30291,
+            "close": 220.32,
+            "isClosing": true
+        },
+        "2019-09-27 09:43:00": {
+            "ticker": "AAPL",
+            "date": "2019-09-27 09:43:00",
+            "price": 220.39,
+            "open": 220.39,
+            "high": 220.39,
+            "low": 220.39,
+            "volume": 31375,
+            "close": 220.39,
+            "isClosing": true
+        },
+        "2019-09-27 09:44:00": {
+            "ticker": "AAPL",
+            "date": "2019-09-27 09:44:00",
+            "price": 220.47,
+            "open": 220.39,
+            "high": 220.47,
+            "low": 220.39,
+            "volume": 39664,
+            "close": 220.47,
+            "isClosing": true
+        },
+        "2019-09-27 09:45:00": {
+            "ticker": "AAPL",
+            "date": "2019-09-27 09:45:00",
+            "price": 220.55,
+            "open": 220.51,
+            "high": 220.56,
+            "low": 220.51,
+            "volume": 70863,
+            "close": 220.55,
+            "isClosing": true
         }
-      ];
-      
+    };
+
+    const candleData = Object.values(rawData);
+    
+    for(let index = 0; index < candleData.length; index++) {
+      candleData[index].minute=index;
+    }
+
+    console.log(candleData)
+    
+    let localMax = 0;
+    for(let index = 0; index < candleData.length; index++) { 
+      if(candleData[index].high > localMax){
+        localMax = candleData[index].high;
+      }
+    }
+    console.log(localMax);
+    
+    let localMin = 2000;
+    for(let index = 0; index < candleData.length; index++) {
+
+      if(candleData[index].low < localMin){
+        localMin = candleData[index].low;
+      }
+    }
+    console.log(localMin);
+
+    let range = localMax - localMin;
 
 
       // // ctx.fillStyle = "black";
@@ -78,21 +274,27 @@
       function drawCandle(context, candleData) {
         // drawRectangle
         const x = candleData.minute * 30 + 30;
-        const y = 480 - Math.max(candleData.close, candleData.open);
+        const y = 680 - Math.max(candleData.close, candleData.open);
+        // const y = 680 - Math.max(candleData.close, candleData.open)- localMax;
+
         const width = 20;
         const height = Math.abs(candleData.close - candleData.open);
+        // const height = (Math.abs(candleData.close - candleData.open)) - localMin;
+
         const color = (candleData.open < candleData.close) ? 'green' : 'red';
 
         // Common for both lines
         const x1 = candleData['minute'] * 30 + 40;
 
         // Lower line
-        const y1 = 480 - candleData.low;
-        const y2 = 480 - Math.min(candleData.close, candleData.open);
+        const y1 = 680 - candleData.low;
+        const y2 = 680 - Math.min(candleData.close, candleData.open);
+        
+        
 
         // UpperLine
-        const Uy1 = 480 - Math.max(candleData.close, candleData.open);
-        const Uy2 = 480 - candleData.high;
+        const Uy1 = 680 - Math.max(candleData.close, candleData.open);
+        const Uy2 = 680 - candleData.high;
 
         drawLine(ctx, x1, y1, x1, y2);
         drawRectangle(ctx, x, y, width, height, color);
