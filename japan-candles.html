@@ -271,34 +271,35 @@
         context.stroke();
       }
 
+      const maxScreen = 20;
+      const minScreen = 680;
+
       function drawCandle(context, candleData) {
         // drawRectangle
         const x = candleData.minute * 30 + 30;
-        const y = 680 - Math.max(candleData.close, candleData.open);
-        // const y = 680 - Math.max(candleData.close, candleData.open)- localMax;
-
+        const y = Math.abs((Math.max(candleData.close, candleData.open) - localMax) * ((minScreen - maxScreen) / (localMax - localMin)));
+        const highY = Math.abs((Math.min(candleData.close, candleData.open) - localMax) * ((minScreen - maxScreen) / (localMax - localMin)));
         const width = 20;
-        const height = Math.abs(candleData.close - candleData.open);
-        // const height = (Math.abs(candleData.close - candleData.open)) - localMin;
-
+        const height = Math.abs(y-highY);
         const color = (candleData.open < candleData.close) ? 'green' : 'red';
 
         // Common for both lines
         const x1 = candleData['minute'] * 30 + 40;
 
+        
         // Lower line
-        const y1 = 680 - candleData.low;
-        const y2 = 680 - Math.min(candleData.close, candleData.open);
-        
-        
+        const y1 = Math.abs((Math.min(candleData.open, candleData.close)  - localMax) * ((minScreen - maxScreen) / (localMax - localMin)));
+        const y2 = Math.abs((candleData.low - localMax) * ((minScreen - maxScreen) / (localMax - localMin)));
 
         // UpperLine
-        const Uy1 = 680 - Math.max(candleData.close, candleData.open);
-        const Uy2 = 680 - candleData.high;
+        const Uy1 = Math.abs((Math.max(candleData.open, candleData.close) - localMax) * ((minScreen - maxScreen) / (localMax - localMin)));
+        const Uy2 = Math.abs((candleData.high  - localMax) * ((minScreen - maxScreen) / (localMax - localMin)));;
 
         drawLine(ctx, x1, y1, x1, y2);
         drawRectangle(ctx, x, y, width, height, color);
         drawLine(ctx, x1, Uy1, x1, Uy2);
+
+        console.log( 'Rectangle: ' + y + ' ' + highY + ' Lower line: ' + y1 + ' ' + y2 + ' Upper line: ' + Uy1 + ' ' + Uy2  );
       }
 
       // drawCandle(ctx, candleData);
