@@ -234,12 +234,12 @@
 
 
 
-      function drawRectangle(context, x, y, width, height, color) {
+      const drawRectangle = (context, x, y, width, height, color) => {
         context.fillStyle = color;
         context.fillRect(x, y, width, height);
       }
 
-      function drawLine(context, x1, y1, x2, y2, color='black') {
+      const drawLine = (context, x1, y1, x2, y2, color='black') => {
         context.beginPath();
         context.moveTo(x1-0.5, y1-0.5);
         context.lineTo(x2-0.5, y2-0.5);
@@ -250,7 +250,7 @@
       const maxScreen = 20;
       const minScreen = 680;
 
-      function drawCandle(context, candleData) {
+      const drawCandle = (context, candleData) => {
         // drawRectangle
         const x = candleData.minute * 30 + 30;
         const y = Math.abs((Math.max(candleData.close, candleData.open) - localMax) * ((minScreen - maxScreen) / (localMax - localMin)));
@@ -284,9 +284,8 @@
         console.log( 'Rectangle: ' + y + ' ' + highY + ' Lower line: ' + y1 + ' ' + y2 + ' Upper line: ' + Uy1 + ' ' + Uy2  );
       }
 
-      // drawCandle(ctx, candleData);
 
-      function drawCandles(ctx, candleData) {
+      const drawCandles = (ctx, candleData) => {
         let numberOfCandle = 0;
         for (let numberOfCandle = 0; numberOfCandle < candleData.length; numberOfCandle++) {
           
