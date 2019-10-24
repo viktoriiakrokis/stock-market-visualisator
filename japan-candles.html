@@ -7,12 +7,17 @@
   <title>Document</title>
 </head>
 <body>
-    <canvas id="myCandle" width="1000" height="700" style="border:1px solid #d3d3d3;">
+    <canvas id="myCandle" width="1200" height="700" style="border:1px solid #d3d3d3;">
     </canvas>
     <script>
-      var c = document.getElementById("myCandle");
+      var c = document.getElementById("myCandle"); 
       var ctx = c.getContext("2d");
 
+      // function myFunction() {
+      //   var width = window.innerWidth;
+      //   var height = window.innerHeight;
+      //   document.getElementById("myCandle").innerHTML = "Width: " + width + "<br>Height: " + height;
+      // }
 
     const rawData = {
         "2019-09-27 09:30:00": {
@@ -189,16 +194,24 @@
     //   candleData[index].minute=index;
     // }
 
-    candleData.forEach((candle, index) => candle.minute = index + 1);
+    candleData.forEach((candle, index) => candle.minute = index);
 
     console.log(candleData)
     
-    let localMax = candleData[0].high; 
-    for(let index = 0; index < candleData.length; index++) { // TODO: use foreach instead
-      if(candleData[index].high > localMax){
-        localMax = candleData[index].high;
-      }
-    }
+    // let localMax = candleData[0].high; 
+    // for(let index = 0; index < candleData.length; index++) { // TODO: use foreach instead
+    //   if(candleData[index].high > localMax){
+    //     localMax = candleData[index].high;
+    //   }
+    // }
+
+    let localMax = candleData[0].high;  // Done! Need to check(it maked from above code)
+    candleData.forEach(function(candle) {
+      if(candle > localMax){
+        localMax = candle;
+        }
+    });
+
     console.log(localMax);
     
     let localMin = candleData[0].low;
