@@ -211,15 +211,20 @@
         localMax = candle;
         }
     });
-
     console.log(localMax);
     
     let localMin = candleData[0].low;
     for(let index = 0; index < candleData.length; index++) { // TODO: use foreach instead
-      if(candleData[index].low < localMin){
+      if(candleData[index].low < localMin) {
         localMin = candleData[index].low;
       }
     }
+    // let localMin = candleData[0].low;
+    // candleData.forEach(function(candle) {  // Something does wrong!
+    //   if(candle < localMin){
+    //     localMin = candle.low;
+    //     }
+    // });
     console.log(localMin);
 
     let range = localMax - localMin;
@@ -242,12 +247,14 @@
 
       const drawCandle = (context, candleData) => {
 
-        const ratio = (minScreen - maxScreen) / (localMax - localMin); // TODO: use ratio everywhere = ready
+        const ratio = (minScreen - maxScreen) / (localMax - localMin); // TODO: use ratio everywhere = ready!!
+        const mathMaxOpenClose = Math.max(candleData.close, candleData.open);
+        const mathMinOpenClose = Math.min(candleData.close, candleData.open);
 
         // drawRectangle
         const x = candleData.minute * 30 + 30;
-        const y = Math.abs((Math.max(candleData.close, candleData.open) - localMax) * ratio); // TODO: please move some values to consts
-        const highY = Math.abs((Math.min(candleData.close, candleData.open) - localMax) * ratio);
+        const y = Math.abs((mathMaxOpenClose - localMax) * ratio); // TODO: please move some values to consts ready!!
+        const highY = Math.abs((mathMinOpenClose - localMax) * ratio);
         const width = 20;
         let height = Math.abs(y-highY);
         let color = (candleData.open < candleData.close) ? 'green' : 'red';
@@ -263,18 +270,18 @@
 
         
         // Lower line
-        const y1 = Math.abs((Math.min(candleData.open, candleData.close)  - localMax) * (ratio));
+        const y1 = Math.abs((mathMinOpenClose  - localMax) * (ratio));
         const y2 = Math.abs((candleData.low - localMax) * (ratio));
 
         // UpperLine
-        const Uy1 = Math.abs((Math.max(candleData.open, candleData.close) - localMax) * (ratio));
+        const Uy1 = Math.abs((mathMaxOpenClose - localMax) * (ratio));
         const Uy2 = Math.abs((candleData.high  - localMax) * (ratio));;
 
         drawLine(ctx, x1, y1, x1, y2);
         drawRectangle(ctx, x, y, width, height, color);
         drawLine(ctx, x1, Uy1, x1, Uy2);
 
-        console.log( 'Rectangle: ' + y + ' ' + highY + ' Lower line: ' + y1 + ' ' + y2 + ' Upper line: ' + Uy1 + ' ' + Uy2  );
+        console.log( 'Rectangle: ' + y + ' \t' + highY + '\t Lower line: ' + y1 + ' \t' + y2 + '\t Upper line: ' + Uy1 + ' ' + Uy2  );
       }
 
 
