@@ -189,42 +189,18 @@
     };
 
     const candleData = Object.values(rawData);
-    
-    // for(let index = 0; index < candleData.length; index++) { // TODO: use foreach instead = ready
-    //   candleData[index].minute=index;
-    // }
 
-    candleData.forEach((candle, index) => candle.minute = index);
+    candleData.forEach((candle, index) => candle.minute = index); // TODO: map
+    // const minute = candleData.map();
 
-    console.log(candleData)
-    
-    // let localMax = candleData[0].high; 
-    // for(let index = 0; index < candleData.length; index++) { // TODO: use foreach instead
-    //   if(candleData[index].high > localMax){
-    //     localMax = candleData[index].high;
-    //   }
-    // }
+    console.log(candleData);
 
-    let localMax = candleData[0].high;  // Done! Need to check(it maked from above code)
-    candleData.forEach(function(candle) {
-      if(candle > localMax){
-        localMax = candle;
-        }
-    });
+    const selectMax = (localMax, candle) => (candle.high > localMax) ? candle.high : localMax;
+    const localMax = candleData.reduce(selectMax, candleData[0].high);
     console.log(localMax);
-    
-    let localMin = candleData[0].low;
-    for(let index = 0; index < candleData.length; index++) { // TODO: use foreach instead
-      if(candleData[index].low < localMin) {
-        localMin = candleData[index].low;
-      }
-    }
-    // let localMin = candleData[0].low;
-    // candleData.forEach(function(candle) {  // Something does wrong!
-    //   if(candle < localMin){
-    //     localMin = candle.low;
-    //     }
-    // });
+
+    const selectMin = (localMin, candle) => (candle.low < localMin) ? candle.low : localMin;
+    const localMin = candleData.reduce(selectMin, candleData[0].low);
     console.log(localMin);
 
     let range = localMax - localMin;
@@ -247,13 +223,13 @@
 
       const drawCandle = (context, candleData) => {
 
-        const ratio = (minScreen - maxScreen) / (localMax - localMin); // TODO: use ratio everywhere = ready!!
+        const ratio = (minScreen - maxScreen) / (localMax - localMin);
         const mathMaxOpenClose = Math.max(candleData.close, candleData.open);
         const mathMinOpenClose = Math.min(candleData.close, candleData.open);
 
         // drawRectangle
         const x = candleData.minute * 30 + 30;
-        const y = Math.abs((mathMaxOpenClose - localMax) * ratio); // TODO: please move some values to consts ready!!
+        const y = Math.abs((mathMaxOpenClose - localMax) * ratio);
         const highY = Math.abs((mathMinOpenClose - localMax) * ratio);
         const width = 20;
         let height = Math.abs(y-highY);
@@ -270,12 +246,12 @@
 
         
         // Lower line
-        const y1 = Math.abs((mathMinOpenClose  - localMax) * (ratio));
-        const y2 = Math.abs((candleData.low - localMax) * (ratio));
+        const y1 = Math.abs((mathMinOpenClose  - localMax) * ratio);
+        const y2 = Math.abs((candleData.low - localMax) * ratio);
 
         // UpperLine
-        const Uy1 = Math.abs((mathMaxOpenClose - localMax) * (ratio));
-        const Uy2 = Math.abs((candleData.high  - localMax) * (ratio));;
+        const Uy1 = Math.abs((mathMaxOpenClose - localMax) * ratio);
+        const Uy2 = Math.abs((candleData.high  - localMax) * ratio);;
 
         drawLine(ctx, x1, y1, x1, y2);
         drawRectangle(ctx, x, y, width, height, color);
