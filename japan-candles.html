@@ -191,9 +191,15 @@
     const candleData = Object.values(rawData);
 
     candleData.forEach((candle, index) => candle.minute = index); // TODO: map
-    // const minute = candleData.map();
+    
+    // const selectIndex = (index) => candleData.minute;
+    const minuteMapper = (currentValue, index) => {
+      currentValue.minute = index;
+      return currentValue;
+    };
+    const newCandleData = candleData.map(minuteMapper);
 
-    console.log(candleData);
+    console.log({ newCandleData });
 
     const selectMax = (localMax, candle) => (candle.high > localMax) ? candle.high : localMax;
     const localMax = candleData.reduce(selectMax, candleData[0].high);
@@ -262,12 +268,14 @@
 
 
       const drawCandles = (ctx, candleData) => {
-        let numberOfCandle = 0;
-        for (let numberOfCandle = 0; numberOfCandle < candleData.length; numberOfCandle++) { // TODO: foreach
+        // let numberOfCandle = 0;
+        // for (let numberOfCandle = 0; numberOfCandle < candleData.length; numberOfCandle++) { // TODO: foreach
           
-          drawCandle(ctx, candleData[numberOfCandle]);
+        //   drawCandle(ctx, candleData[numberOfCandle]);
 
-        }
+        // }
+
+        candleData.forEach(candle => drawCandle(ctx, candle)); // Ready!! Need to check
       }
 
       drawCandles(ctx, candleData);
