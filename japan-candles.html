@@ -1,23 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 </head>
-<body>
-    <canvas id="myCandle" width="1200" height="700" style="border:1px solid #d3d3d3;">
+<body style="height: 100%">
+    <canvas id="myCandle" width="1200" style="border:1px solid #d3d3d3;">
     </canvas>
     <script>
       var c = document.getElementById("myCandle"); 
       var ctx = c.getContext("2d");
-
-      // function myFunction() {
-      //   var width = window.innerWidth;
-      //   var height = window.innerHeight;
-      //   document.getElementById("myCandle").innerHTML = "Width: " + width + "<br>Height: " + height;
-      // }
+      ctx.canvas.width  = window.innerWidth;
+      ctx.canvas.height = window.innerHeight;
 
     const rawData = {
         "2019-09-27 09:30:00": {
@@ -188,18 +184,13 @@
         }
     };
 
-    const candleData = Object.values(rawData);
-
-    candleData.forEach((candle, index) => candle.minute = index); // TODO: map
-    
-    // const selectIndex = (index) => candleData.minute;
     const minuteMapper = (currentValue, index) => {
       currentValue.minute = index;
       return currentValue;
     };
-    const newCandleData = candleData.map(minuteMapper);
+    const candleData = Object.values(rawData).map(minuteMapper);
 
-    console.log({ newCandleData });
+    //console.log({ newCandleData });
 
     const selectMax = (localMax, candle) => (candle.high > localMax) ? candle.high : localMax;
     const localMax = candleData.reduce(selectMax, candleData[0].high);
@@ -224,8 +215,10 @@
         context.stroke();
       }
 
-      const maxScreen = 20;
-      const minScreen = 680;
+      const canvasHeight = document.querySelector('#myCandle').clientHeight;
+      const margin = 20;
+      const maxScreen = margin;
+      const minScreen = canvasHeight - margin;
 
       const drawCandle = (context, candleData) => {
 
@@ -268,14 +261,9 @@
 
 
       const drawCandles = (ctx, candleData) => {
-        // let numberOfCandle = 0;
-        // for (let numberOfCandle = 0; numberOfCandle < candleData.length; numberOfCandle++) { // TODO: foreach
-          
-        //   drawCandle(ctx, candleData[numberOfCandle]);
 
-        // }
+        candleData.forEach(candle => drawCandle(ctx, candle)); 
 
-        candleData.forEach(candle => drawCandle(ctx, candle)); // Ready!! Need to check
       }
 
       drawCandles(ctx, candleData);
